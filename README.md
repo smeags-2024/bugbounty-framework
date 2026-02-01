@@ -19,13 +19,24 @@ BugBounty/
 ├── .github/
 │   ├── prompts/              # AI assistant prompts
 │   └── copilot-instructions.md
+├── docker/                    # Docker deployment (NEW)
+│   ├── Dockerfile            # Kali Linux container definition
+│   ├── docker-compose.yml    # Container orchestration
+│   ├── .dockerignore         # Build optimization
+│   ├── build.sh              # Build container image
+│   ├── start.sh              # Start container
+│   ├── stop.sh               # Stop container
+│   ├── shell.sh              # Enter container shell
+│   ├── logs.sh               # View container logs
+│   └── rebuild.sh            # Rebuild container
 ├── docs/                      # Core methodology documentation
 │   ├── skills.md             # Complete testing methodology (OWASP, PTES, WAHH)
 │   ├── checklist.md          # Comprehensive testing checklist
 │   ├── findings.md           # Vulnerability documentation template
 │   ├── recon.md              # Reconnaissance tracking
 │   ├── workflow.md           # AI-assisted daily workflow
-│   └── target-template.md    # New program template
+│   ├── target-template.md    # New program template
+│   └── docker-setup.md       # Docker deployment guide (NEW)
 ├── scripts/
 │   ├── setup.sh              # Tool installation for Kali Linux
 │   ├── new-program.sh        # Create new target workspace
