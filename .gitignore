@@ -108,6 +108,9 @@ findings/pocs/*.jpg
 *.rar
 *.7z
 
+# Prompts (AI assistant templates)
+.github/prompts/
+
 # Exceptions (keep these)
 !.github/
 !configs/
