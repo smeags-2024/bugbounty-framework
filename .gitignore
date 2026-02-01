@@ -110,6 +110,7 @@ findings/pocs/*.jpg
 
 # Prompts (AI assistant templates)
 .github/prompts/
+.github/copilot-instructions.md
 
 # Exceptions (keep these)
 !.github/
