@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  bugbounty-kali:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: bugbounty-framework:latest
+    container_name: bugbounty-kali
+    hostname: kali-container
+    
+    # Keep container running
+    tty: true
+    stdin_open: true
+    
+    # Resource limits (adjust as needed)
+    mem_limit: 8g
+    cpus: 4.0
+    
+    # Volume mounts for persistent data
+    volumes:
+      # Project files (read-only to prevent accidental changes)
+      - ../:/workspace:ro
+      # Pentesting workspaces (read-write for results)
+      - ~/pentesting:/root/pentesting:rw
+      # Wordlists (read-only)
+      - ~/wordlists:/root/wordlists:ro
+      # Tool outputs
+      - ./outputs:/root/outputs:rw
+    
+    # Network configuration
+    network_mode: bridge
+    ports:
+      - "8080:8080"  # For web tools if needed
+      - "8443:8443"  # For HTTPS tools if needed
+    
+    # Environment variables
+    environment:
+      - RATE_LIMIT=10
+      - MAX_THREADS=50
+      - TIMEOUT=30
+      - TZ=UTC
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Security options
+    security_opt:
+      - seccomp:unconfined  # Needed for some security tools
+      - apparmor:unconfined
+    
+    # Capabilities (needed for network tools)
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Optional: separate container for web interface tools
+# Uncomment if you want to run Burp Suite or ZAP with GUI
+#  burpsuite:
+#    image: bugbounty-framework:latest
+#    container_name: burp-suite
+#    volumes_from:
+#      - bugbounty-kali
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - DISPLAY=${DISPLAY}
+#    volumes:
+#      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+
+networks:
+  default:
+    driver: bridge

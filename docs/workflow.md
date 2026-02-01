@@ -3,6 +3,38 @@
 ## Overview
 This document defines the daily routine and AI collaboration model for effective bug bounty hunting with GitHub Copilot CLI and MCP (Model Context Protocol) integration.
 
+**Deployment Options:**
+- **Docker Container** - Commands execute inside isolated container
+- **Kali VM** - Commands execute directly on VM
+
+Both environments provide full AI automation capabilities.
+
+---
+
+## Environment Setup
+
+### Docker Container Mode
+```bash
+# Start container (if not running)
+cd ~/bugbounty-framework/docker
+./start.sh
+
+# Enter container for interactive work
+./shell.sh
+
+# Or execute commands from host
+docker exec -it bugbounty-kali command
+```
+
+### Kali VM Mode
+```bash
+# Work directly on VM
+cd ~/bugbounty-framework
+# All commands run natively
+```
+
+**Note**: AI commands (via GitHub Copilot CLI) work in both environments.
+
 ---
 
 ## AI Collaboration Model

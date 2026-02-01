@@ -46,7 +46,53 @@ BugBounty/
 
 ## 🚀 Quick Start
 
-### 1. Initial Setup (Development Machine)
+### Deployment Options
+
+This framework supports two deployment methods:
+
+1. **🐳 Docker (Recommended)** - Cross-platform, isolated, easy to manage
+2. **💻 Kali VM** - Full GUI support, traditional penetration testing setup
+
+---
+
+### Option 1: Docker Deployment (Any Linux Distro)
+
+**Prerequisites:**
+- Docker & Docker Compose installed
+- 8GB RAM minimum
+- 20GB disk space
+
+**Quick Start:**
+```bash
+# Clone repository
+git clone https://github.com/smeags-2024/bugbounty-framework.git
+cd bugbounty-framework
+
+# Build container (15-20 minutes first time)
+cd docker
+./build.sh
+
+# Start container
+./start.sh
+
+# Enter container shell
+./shell.sh
+```
+
+**📖 Complete Docker guide**: [docs/docker-setup.md](docs/docker-setup.md)
+
+**Benefits:**
+- ✅ Works on Ubuntu, Fedora, Arch, macOS, Windows (WSL2)
+- ✅ Security isolation from host system
+- ✅ No dependency conflicts
+- ✅ Fast deployment and cleanup
+- ✅ Reproducible environment
+
+---
+
+### Option 2: Kali VM Deployment
+
+#### 1. Initial Setup (Development Machine)
 
 ```bash
 # Clone the repository
@@ -58,14 +104,14 @@ cat docs/skills.md
 cat docs/checklist.md
 ```
 
-### 2. Deploy on Kali Linux VM
+#### 2. Deploy on Kali Linux VM
 
 ```bash
 # Authenticate GitHub CLI (if not already done)
 gh auth login
 
 # Clone repository on Kali
-git clone https://github.com/[your-username]/bugbounty-framework.git ~/bugbounty-framework
+git clone https://github.com/smeags-2024/bugbounty-framework.git ~/bugbounty-framework
 cd ~/bugbounty-framework
 
 # Install all tools (100+ security tools)
@@ -82,7 +128,17 @@ httpx -version
 nuclei -version
 ```
 
-### 3. Create Your First Target
+**Benefits:**
+- ✅ Full GUI support (Burp Suite, OWASP ZAP)
+- ✅ Maximum tool compatibility
+- ✅ Traditional pentest environment
+- ✅ Better for visual testing
+
+---
+
+## 📝 Usage
+
+### Create Your First Target
 
 ```bash
 # Create new program workspace

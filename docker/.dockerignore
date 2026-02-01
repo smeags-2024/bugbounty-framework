@@ -1,0 +1,37 @@
+# Docker build exclusions
+.git
+.gitignore
+*.md
+!docker/README.md
+
+# Directories
+pentesting/
+wordlists/SecLists/
+tools/
+.github/
+outputs/
+
+# Sensitive files
+*.key
+*.pem
+credentials.txt
+secrets.txt
+.env
+
+# Large files
+*.pcap
+*.log
+*.sqlite
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.temp
+*~
