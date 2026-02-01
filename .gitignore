@@ -1,0 +1,117 @@
+# Sensitive Data
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.txt
+secrets.txt
+api_keys.txt
+tokens.txt
+passwords.txt
+.env
+.env.local
+.env.production
+config.php
+
+# Personal Information
+target-info.md
+scope.md
+
+# Findings and Reports (keep structure, not sensitive data)
+findings/*/
+reports/submitted/
+reports/drafts/*-SENSITIVE.md
+
+# Tool Outputs (large files)
+*.pcap
+*.pcapng
+*.cap
+*.log
+*.sqlite
+*.db
+
+# Temporary Files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Build/Compiled Files
+*.o
+*.so
+*.exe
+*.dll
+*.pyc
+__pycache__/
+*.class
+*.jar
+node_modules/
+vendor/
+
+# IDE/Editor Specific
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS Specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Wordlists (too large for git)
+wordlists/SecLists/
+wordlists/*.txt
+
+# Tool Directories
+tools/*/
+go/pkg/
+go/bin/
+
+# Testing Workspaces
+pentesting/*/
+monitoring/*/
+
+# Backup Files
+*.bak
+*.backup
+*.old
+
+# Scan Results (large)
+recon-*/
+scan-*/
+daily-*/
+
+# Screenshots (can be large)
+screenshots/*.png
+screenshots/*.jpg
+findings/pocs/*.png
+findings/pocs/*.jpg
+
+# Videos
+*.mp4
+*.avi
+*.mov
+*.webm
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Exceptions (keep these)
+!.github/
+!configs/
+!scripts/
+!docs/
+!templates/
+!README.md

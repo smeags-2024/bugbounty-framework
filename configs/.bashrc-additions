@@ -1,0 +1,167 @@
+# Bug Bounty Environment Variables
+# Add these to your ~/.bashrc on Kali Linux
+
+# Paths
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
+export TOOLS_DIR=$HOME/tools
+export WORDLIST_DIR=$HOME/wordlists
+export PENTESTING_DIR=$HOME/pentesting
+
+# Rate Limiting (Respect program limits!)
+export RATE_LIMIT=10          # requests per second
+export MAX_THREADS=50         # maximum concurrent threads
+export TIMEOUT=30             # request timeout in seconds
+
+# Tool Configuration
+export SUBFINDER_CONFIG=~/.config/subfinder/config.yaml
+export NUCLEI_CONFIG=~/.config/nuclei/config.yaml
+
+# Burp Suite
+export BURP_JAR=/usr/share/burpsuite/burpsuite.jar
+
+# Color output
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
+# Tool Aliases
+alias ll='ls -lah'
+alias grep='grep --color=auto'
+alias cat='bat --style=plain' # if bat is installed
+
+# Reconnaissance Aliases
+alias recon-fast='subfinder -d $1 -silent | httpx -silent'
+alias recon-full='subfinder -d $1 -all -recursive -o subs.txt && httpx -l subs.txt -o alive.txt && nuclei -l alive.txt'
+alias subscan='subfinder -d $1 -all -o subs.txt && httpx -l subs.txt -o alive.txt'
+
+# Scanning Aliases
+alias portscan='naabu -host $1 -top-ports 1000'
+alias portscan-full='naabu -host $1 -p - -rate 1000'
+alias dirscan='ffuf -u https://$1/FUZZ -w ~/wordlists/SecLists/Discovery/Web-Content/raft-medium-directories.txt -mc 200,204,301,302,307,401,403'
+alias nuclei-crit='nuclei -l $1 -t ~/nuclei-templates/ -severity critical,high'
+alias nuclei-full='nuclei -l $1 -t ~/nuclei-templates/ -severity critical,high,medium'
+
+# Exploitation Aliases
+alias sqlmap-quick='sqlmap -u "$1" --batch --random-agent'
+alias sqlmap-full='sqlmap -u "$1" --batch --level=5 --risk=3 --random-agent'
+alias xss-scan='dalfox url "$1"'
+
+# Utility Aliases
+alias update-tools='~/tools/update-tools.sh'
+alias burp='java -jar $BURP_JAR &'
+
+# Quick Functions
+cdtest() {
+    cd ~/pentesting/"$1" 2>/dev/null || cd ~/pentesting/ || return
+}
+
+newtest() {
+    ~/bugbounty-framework/scripts/new-program.sh "$1"
+}
+
+# Quick recon on a domain
+quickrecon() {
+    if [ -z "$1" ]; then
+        echo "Usage: quickrecon <domain>"
+        return 1
+    fi
+    
+    echo "[*] Quick recon on $1..."
+    subfinder -d "$1" -silent | httpx -silent -title -tech-detect | tee quick-recon-"$1".txt
+}
+
+# Find interesting files
+findfiles() {
+    if [ -z "$1" ]; then
+        echo "Usage: findfiles <domain>"
+        return 1
+    fi
+    
+    ffuf -u "https://$1/FUZZ" -w ~/wordlists/backup-files.txt -mc 200 -fc 404
+}
+
+# Parameter fuzzing
+fuzzparams() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: fuzzparams <url-with-FUZZ> <wordlist>"
+        return 1
+    fi
+    
+    ffuf -u "$1" -w "$2" -mc 200,301,302,401,403,500 -fc 404
+}
+
+# Git history search
+gitsecrets() {
+    if [ -z "$1" ]; then
+        echo "Usage: gitsecrets <repo-url>"
+        return 1
+    fi
+    
+    git clone "$1" temp-repo
+    cd temp-repo || return
+    gitleaks detect --verbose
+    cd ..
+    rm -rf temp-repo
+}
+
+# Quick notes
+note() {
+    echo "$(date +'%Y-%m-%d %H:%M:%S') - $*" >> ~/pentesting/notes.txt
+}
+
+# Show today's notes
+notes() {
+    grep "$(date +'%Y-%m-%d')" ~/pentesting/notes.txt 2>/dev/null || echo "No notes for today"
+}
+
+# Tool version check
+versions() {
+    echo "Tool Versions:"
+    echo "  Go: $(go version | cut -d' ' -f3)"
+    echo "  Python: $(python3 --version | cut -d' ' -f2)"
+    echo "  Subfinder: $(subfinder -version 2>&1 | head -1)"
+    echo "  Httpx: $(httpx -version 2>&1 | head -1)"
+    echo "  Nuclei: $(nuclei -version 2>&1 | head -1)"
+    echo "  Ffuf: $(ffuf -V 2>&1)"
+    echo "  SQLMap: $(sqlmap --version | head -1)"
+}
+
+# Safe cleanup
+cleanup() {
+    echo "[*] Cleaning up temporary files..."
+    find ~/pentesting -name "*.tmp" -delete
+    find ~/pentesting -name "*.temp" -delete
+    find ~/pentesting -name "*~" -delete
+    echo "[+] Cleanup complete"
+}
+
+# Project statistics
+stats() {
+    if [ -f "findings.md" ]; then
+        echo "Project Statistics:"
+        echo "  Critical: $(grep -c "Critical" findings.md 2>/dev/null || echo 0)"
+        echo "  High: $(grep -c "High" findings.md 2>/dev/null || echo 0)"
+        echo "  Medium: $(grep -c "Medium" findings.md 2>/dev/null || echo 0)"
+        echo "  Low: $(grep -c "Low" findings.md 2>/dev/null || echo 0)"
+    else
+        echo "[!] No findings.md in current directory"
+    fi
+}
+
+# Welcome message
+if [ -f ~/.welcome_shown ]; then
+    true
+else
+    echo "============================================"
+    echo "  Bug Bounty Testing Environment Ready"
+    echo "============================================"
+    echo ""
+    echo "Quick Commands:"
+    echo "  newtest <name>     - Create new target workspace"
+    echo "  cdtest <name>      - Navigate to target workspace"
+    echo "  quickrecon <domain> - Quick reconnaissance"
+    echo "  versions           - Show tool versions"
+    echo "  update-tools       - Update all tools"
+    echo ""
+    touch ~/.welcome_shown
+fi

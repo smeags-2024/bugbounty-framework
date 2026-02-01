@@ -1,0 +1,75 @@
+# Burp Suite Extensions for Bug Bounty Hunting
+
+# Essential Extensions
+Autorize - Authorization testing
+Active Scan++ - Enhanced scanning
+Logger++ - Advanced logging
+Param Miner - Parameter discovery
+Turbo Intruder - High-speed attacks
+
+# Authentication & Authorization
+Autorize - Test authorization issues
+AuthMatrix - Complex authorization testing
+Token Extractor - Extract tokens automatically
+
+# Scanning & Detection
+Active Scan++ - Additional checks
+J2EEScan - Java application testing
+Retire.js - Vulnerable JavaScript libraries
+Upload Scanner - File upload testing
+Wsdler - SOAP/WSDL testing
+
+# Testing Tools
+Turbo Intruder - Advanced fuzzing and race conditions
+Hackvertor - Encoding/decoding
+Decoder Improved - Better decoding
+JSON Web Tokens - JWT manipulation
+JWT Editor - JWT testing
+
+# Traffic Analysis
+Logger++ - Enhanced logging
+Flow - Request/response visualization
+HTTP Request Smuggler - Request smuggling
+Collaborator Everywhere - Out-of-band testing
+
+# API Testing
+JSON Beautifier - Format JSON
+GraphQL Raider - GraphQL testing
+OpenAPI Parser - Swagger/OpenAPI testing
+
+# Productivity
+Copy As Python-Requests - Generate Python code
+Copy As PowerShell Requests - Generate PowerShell
+Proxy History Size - Increase history
+Save To File - Save requests/responses
+
+# Information Gathering
+IP Rotate - Bypass rate limiting via AWS
+Software Version Reporter - Version detection
+Content Type Converter - Convert content types
+
+# Payloads & Wordlists
+Intruder File Payload Generator - Custom payloads
+Payload Parser - Parse responses
+HUNT - Identify parameters
+
+# Reporting
+Report To Elastic - SIEM integration
+Issue Poster - Export issues
+
+# Mobile Testing
+Certificate Pinning Bypass - Android/iOS testing
+Android APP Link Deep Link - Deep link testing
+
+# Installation Notes:
+# 1. Open Burp Suite
+# 2. Go to Extender > BApp Store
+# 3. Search for each extension by name
+# 4. Click "Install"
+# 5. Restart Burp Suite if prompted
+
+# Manual Installation (for extensions not in BApp Store):
+# 1. Download .jar file from GitHub
+# 2. Extender > Extensions > Add
+# 3. Select extension type (Java)
+# 4. Load the .jar file

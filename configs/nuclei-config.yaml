@@ -1,0 +1,82 @@
+# Nuclei Configuration
+# ~/.config/nuclei/config.yaml
+
+# Rate limiting (respect target servers!)
+rate-limit: 150
+bulk-size: 25
+c: 25
+
+# Timeout settings
+timeout: 10
+retries: 1
+
+# Proxy settings (uncomment to use)
+# proxy: http://127.0.0.1:8080
+
+# Reporting
+report-config: ~/.config/nuclei/reporting-config.yaml
+markdown-export: nuclei-report.md
+
+# Template settings
+templates:
+  - ~/nuclei-templates/
+
+severity:
+  - critical
+  - high
+  - medium
+  - low
+  - info
+
+# Exclusions (add noisy templates here)
+exclude-templates:
+  - nuclei-templates/ssl/
+  
+# Network settings
+follow-redirects: true
+max-redirects: 10
+
+# Output settings
+silent: false
+verbose: false
+no-color: false
+json: false
+
+# Update settings
+update: true
+update-templates: true
+automatic-scan: false
+
+# Advanced options
+stats: true
+stats-interval: 5
+metrics: false
+
+# Header configuration
+header:
+  - 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+  - 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+
+# Interactsh settings (for OOB testing)
+interactsh: true
+interactsh-server: https://interact.sh
+
+# Performance tuning
+# Adjust based on target and your connection
+# Lower values = more respectful, higher values = faster scans
+# Always respect program rate limits!
+
+# Conservative (default for bug bounty)
+# rate-limit: 150
+# bulk-size: 25
+# c: 25
+
+# Moderate (use with caution)
+# rate-limit: 300
+# bulk-size: 50
+# c: 50
+
+# Aggressive (only for authorized pentests)
+# rate-limit: 500
+# bulk-size: 100
+# c: 100
